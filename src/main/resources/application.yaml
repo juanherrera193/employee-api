@@ -1,0 +1,7 @@
+server:
+  port: 8091
+
+employee:
+  soap:
+    client-url: "http://localhost:8090/ws/employee"
+  min-age: 18

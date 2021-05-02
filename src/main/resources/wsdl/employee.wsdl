@@ -1,0 +1,114 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.parameta.co/xml/employee" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.parameta.co/xml/employee" targetNamespace="http://www.parameta.co/xml/employee">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.parameta.co/xml/employee">
+            <xs:element name="getEmployeeByDocumentRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="documentType" type="xs:string"/>
+                        <xs:element name="documentNumber" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getEmployeeByDocumentResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="employee" type="tns:employeeResponse"/>
+                        <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveEmployeeRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Employee" type="tns:employeeRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveEmployeeResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="employeeRequest">
+                <xs:sequence>
+                    <xs:element name="names" type="xs:string"/>
+                    <xs:element name="surname" type="xs:string"/>
+                    <xs:element name="documentType" type="xs:string"/>
+                    <xs:element name="documentNumber" type="xs:string"/>
+                    <xs:element name="dateOfBirth" type="xs:date"/>
+                    <xs:element name="dateOfJoiningCompany" type="xs:date"/>
+                    <xs:element name="position" type="xs:string"/>
+                    <xs:element name="salary" type="xs:decimal"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="employeeResponse">
+                <xs:sequence>
+                    <xs:element name="names" type="xs:string"/>
+                    <xs:element name="surname" type="xs:string"/>
+                    <xs:element name="documentType" type="xs:string"/>
+                    <xs:element name="documentNumber" type="xs:string"/>
+                    <xs:element name="dateOfBirth" type="xs:date"/>
+                    <xs:element name="dateOfJoiningCompany" type="xs:date"/>
+                    <xs:element name="position" type="xs:string"/>
+                    <xs:element name="salary" type="xs:decimal"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="serviceStatus">
+                <xs:sequence>
+                    <xs:element name="statusCode" type="xs:string"/>
+                    <xs:element name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getEmployeeByDocumentResponse">
+        <wsdl:part element="tns:getEmployeeByDocumentResponse" name="getEmployeeByDocumentResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="saveEmployeeResponse">
+        <wsdl:part element="tns:saveEmployeeResponse" name="saveEmployeeResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getEmployeeByDocumentRequest">
+        <wsdl:part element="tns:getEmployeeByDocumentRequest" name="getEmployeeByDocumentRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="saveEmployeeRequest">
+        <wsdl:part element="tns:saveEmployeeRequest" name="saveEmployeeRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="EmployeePort">
+        <wsdl:operation name="getEmployeeByDocument">
+            <wsdl:input message="tns:getEmployeeByDocumentRequest" name="getEmployeeByDocumentRequest"> </wsdl:input>
+            <wsdl:output message="tns:getEmployeeByDocumentResponse" name="getEmployeeByDocumentResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveEmployee">
+            <wsdl:input message="tns:saveEmployeeRequest" name="saveEmployeeRequest"> </wsdl:input>
+            <wsdl:output message="tns:saveEmployeeResponse" name="saveEmployeeResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="EmployeePortSoap11" type="tns:EmployeePort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getEmployeeByDocument">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getEmployeeByDocumentRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getEmployeeByDocumentResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveEmployee">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="saveEmployeeRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="saveEmployeeResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EmployeePortService">
+        <wsdl:port binding="tns:EmployeePortSoap11" name="EmployeePortSoap11">
+            <soap:address location="http://localhost:8090/ws/employee"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
